@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./public/layui/css/layui.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="now-ui-kit.css"> -->
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
+    <title>爆米花管理</title>
+</head>
+<body class="login-page sidebar-collapse">
+         <!-- End Navbar -->
+         <div id="firAll" class="page-header layui-anim" filter-color="orange">
+             <div class="page-header-image" style="background-image:url(./img/back.png)"></div>
+             <div class="container">
+                 <div class="col-md-4 content-center">
+                     <div id="fOut" class="card card-login card-plain ">
+                         <form class="form" method="" action="">
+                             <div class="header header-primary text-center">
+                                 <div class="logo-container">
+                                     <img src="./img/logo.png" alt="">
+                                 </div>
+                             </div>
+                             <div class="content">
+                                 <div id="ip1out" class="input-group form-group-no-border input-lg" style="border: none">
+                                    
+                                     <input id="ip1" type="text" class="form-control" placeholder="Administrators">
+                                 </div>
+                                 <div class="input-group form-group-no-border input-lg">
+                                     
+                                     <input id="ip2" type="password" placeholder="Password" class="form-control">
+                                 </div>
+                             </div>
+                             <div class="footer text-center">
+                                 <div id="go" class="btn btn-primary btn-round btn-lg btn-block" style="background-color: #b2a18a">Get Started</div>
+                             </div>
+                            
+                         </form>
+                     </div>
+                 </div>
+            </div>
+        </div>
+
+
+
+        <div id="secAll" class="layui-layout layui-layout-admin" style="display: none">
+            <div class="layui-layout layui-layout-admin ">
+                <div class="layui-header" style=" top: 0;position: fixed;width: 100%;">
+                <div class="layui-logo"style="cursor: default">管理那点事</div>
+              <!-- 头部区域（可配合layui已有的水平导航） -->
+              <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="#choCity">城市选择</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" id="headCinema">影院管理</a></li>
+                <li class="layui-nav-item"><a href="#user">用户管理</a></li>
+                <li class="layui-nav-item">
+                  <a href="javascript:;">其它</a>
+                  <dl class="layui-nav-child">
+                    <dd><a href="">退出</a></dd>
+                  </dl>
+                </li>
+              </ul>
+              <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                  <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    admin
+                  </a>
+                  
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;" id="cityCur"></a></li>
+              </ul>
+            </div>
+            
+            <div id="left-all" class="layui-side layui-bg-black" style="margin-left: 0px;left: -300px;position: fixed;height: 100%;">
+              <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                  <li class="layui-nav-item ">
+                    <a class="" href="javascript:;">影院查询</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="#ipFind1">通过id</a></dd>
+                    </dl>
+                  </li>
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">检查座位信息</a>
+                    
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="layui-body">
+              <!-- 内容主体区域 -->
+              <div id="show" style="padding: 15px;">
+                  <div id="choCity" style="display: none" class="layui-anim layui-anim-fadein">
+                      <p id="remen">热门城市</p>
+                      <div id="hotCtList"></div>
+                      <a id="city1" href="javascript:;">A~G</a>
+                      <a id="city2" href="javascript:;">H~L</a>
+                      <a id="city3" href="javascript:;">M~T</a>
+                      <a id="city4" href="javascript:;">W~Z</a>
+                      <div id="cityList"></div>
+                  </div>
+                  <div id="cinema" style="display: none">
+                    <table id="cinemaTable" style="margin-top: 0px;margin-right: 0px"></table>
+                  </div>
+                  <div id="finduser">
+                    <input id="ip_find_phone" type="text" placeholder="请输入影院id" style="display: none">
+                    <div id="fdjpic" style="display: none"></div>
+                    <div id="cinemaData" style="display: none;z-index: 0; position: relative;left: -1000px;">
+                      <div id="cinemaInformation">
+                          <div class="layui-card" style="background-color: #f7f2f2;position: relative;width: 1000px;height: 600px;border-radius: 10px; box-shadow: 3px 1px 2px #a8a2a2">
+                              <div class="layui-card-body">
+                                  <div class="layui-form" id="cinemaform">
+                                      <div class="layui-form-item">
+                                          <label class="layui-form-label" >id</label>
+                                          <div class="layui-input-inline">
+                                              <input type="text" name="username" readonly="" id="cinema-id" class="layui-input">
+                                          </div>
+                                      </div>
+                                      <div class="layui-form-item">
+                                          <label class="layui-form-label" >名称</label>
+                                          <div class="layui-input-inline">
+                                              <input type="text" name="usersex" readonly="" id="cinema-name" class="layui-input">
+                                          </div>
+                                      </div>
+                                      
+                                      
+                                      <div class="layui-form-item" >
+                                      <label class="layui-form-label">地址</label>
+                                      <div class="layui-input-inline">
+                                          <input type="text" name="cellphone"  id="cinema-add" lay-verify="phone" readonly="" autocomplete="off" class="layui-input">
+                                      </div>
+                                      </div>
+                                      <div class="layui-form-item">
+                                      <label class="layui-form-label" >价格</label>
+                                      <div class="layui-input-inline">
+                                          <input type="text" name="email"  id="cinema-price" lay-verify="email" readonly="" autocomplete="off" class="layui-input">
+                                      </div>
+                                      </div>
+                                         
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div id="addmov">
+                    <div id="addMovData" style="display: none;z-index: 0; position: relative;">
+                      <div id="addMovInformation">
+                          <div class="layui-card" style="background-color: #f7f2f2;position: relative;width: 1000px;height: 600px;border-radius: 10px; box-shadow: 3px 1px 2px #a8a2a2">
+                              <div class="layui-card-body">
+                                  <div class="layui-carousel" id="test1">
+                                      <div id="lbpic" carousel-item="">
+                                        <div>
+                                          <img src="./img/1.jpg" alt="">
+                                        </div>
+                                        <div>
+                                          <img src="./img/2.jpg" alt="">
+                                        </div>
+                                        <div>
+                                          <img src="./img/3.jpg" alt="">
+                                        </div>
+                                        <div>
+                                          <img src="./img/4.jpg" alt="">
+                                        </div>
+                                        <div>
+                                          <img src="./img/5.jpg" alt="">
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div id="addMov">
+                                      <input type="text" id="addchoCinema" style="    position: relative;
+                                      top: -436px;
+                                      left: 513px;
+                                      height: 38px;
+                                      border: navajowhite;
+                                      width: 190px;"></input>
+                                      <select id="addchoCinHall" style="height: 38px;
+                                      width: 190px;
+                                      position: relative;
+                                      left: 318px;
+                                      border: none;
+                                      top: -364px;">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                      </select>
+                                      <select  id="choMovIn" style="position: relative;
+                                      top: -290px;
+                                      left: 122px;
+                                      height: 38px;
+                                      width: 190px;
+                                      border: none;"></select>
+                                      <div class="layui-form-item" style="    position: relative;
+                                      top: -255px;
+                                      left: 432px;">
+                                          <label class="layui-form-label" style="padding: 9px 8px ">起始时间</label>
+                                          <div class="layui-input-inline">
+                                              <input type="text" name="cellphone"  id="bTime" lay-verify="phone"  autocomplete="off" class="layui-input">
+                                          </div>
+                                          </div>
+                                          <div class="layui-form-item" style="    position: relative;
+                                          top: -255px;
+                                          left: 432px;" >
+                                          <label class="layui-form-label" style="padding: 9px 8px " >结束时间</label>
+                                          <div class="layui-input-inline">
+                                              <input type="text" name="email"  id="eTime" lay-verify="email"  autocomplete="off" class="layui-input">
+                                          </div>
+                                          </div>
+                                      <button id="go4" type="submit" class="layui-btn layui-btn-primary layui-btn-radius" style="  position: relative;
+                                      top: -220px;
+                                      left: 601px;">添加电影</button>
+                                      <p style="position: relative;
+                                      top: -566px;
+                                      left: 448px;">选择影厅</p>                                      
+                                      <p style="left: 447px;
+                                      position: relative;
+                                      top: -518px;">选择电影</p>
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div id="user">
+                  <table id="usertable"></table>
+                </div>
+              </div>
+            </div>
+            
+            <!-- <div class="layui-footer">
+    
+              © 爆米花影院管理
+            </div> -->
+        </div>
+         
+
+        
+      
+     <script src="index.js"></script>
+     <script src="./public/layui/layui.all.js"></script>
+     <script>
+        layui.use('carousel', function(){
+          var carousel = layui.carousel;
+          //建造实例
+          carousel.render({
+            elem: '#test1'
+            ,width: '300px'
+            ,height: '500px'
+            ,interval: 3000
+          });
+        });
+      </script>
+    </body>
+</html>
