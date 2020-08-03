@@ -32,7 +32,6 @@ let cityList,udcityList,cinemaList;
 //     })
 // });
 
-// 下面代码运行时分多次（3）运行 一千多次直接执行会报错
 // for(let i = 500; i < 1000; i++) {
 //     console.log(i+1);
 //     http.get(`http://39.97.33.178/api/cinemaList?cityId=${i+1}`,function(res){
